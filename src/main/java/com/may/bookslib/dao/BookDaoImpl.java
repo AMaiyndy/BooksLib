@@ -1,7 +1,9 @@
 package com.may.bookslib.dao;
 
 import com.may.bookslib.model.Book;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -37,7 +39,24 @@ public class BookDaoImpl implements BookDao {
     public Book getBookById(long id) {
         String sql = "SELECT * FROM books WHERE ID=" + id;
 
-        return jdbcTemplate.queryForObject(sql, new BookRowMapper(), id);
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Book>() {
+
+            @Override
+            public Book extractData(ResultSet rs) throws SQLException,
+                    DataAccessException {
+                if (rs.next()) {
+                    Book book = new Book();
+                    book.setId(rs.getLong("ID"));
+                    book.setBookTitle(rs.getString("BOOK_TITLE"));
+                    book.setBookAuthor(rs.getString("BOOK_AUTHOR"));
+                    book.setBookQuantity(rs.getLong("BOOK_QUANTITY"));
+                    return book;
+                }
+
+                return null;
+            }
+
+        });
     }
 
     @Override
