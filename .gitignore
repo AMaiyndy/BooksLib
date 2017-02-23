@@ -1,9 +1,11 @@
 #folder
 .idea/*
-target/*
 
 # class files
 *.class
 
 # iml files
 *.iml
+
+#target folder
+target/*
