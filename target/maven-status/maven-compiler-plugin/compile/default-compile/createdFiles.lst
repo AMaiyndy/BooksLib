@@ -1,8 +1,0 @@
-com\may\bookslib\service\BookServiceImpl.class
-com\may\bookslib\dao\BookDaoImpl$1.class
-com\may\bookslib\dao\BookDaoImpl.class
-com\may\bookslib\dao\BookDaoImpl$BookRowMapper.class
-com\may\bookslib\model\Book.class
-com\may\bookslib\controller\BookController.class
-com\may\bookslib\dao\BookDao.class
-com\may\bookslib\service\BookService.class
