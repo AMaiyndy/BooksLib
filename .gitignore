@@ -1,5 +1,6 @@
 #folder
 .idea/*
+target/*
 
 # class files
 *.class
