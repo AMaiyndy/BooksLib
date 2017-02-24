@@ -7,7 +7,7 @@
     <title>Add/Edit a book</title>
 </head>
 <body>
-<h1>Add/Edit a new book</h1>
+<h1>Add/Edit a book</h1>
 <br/>
 <br/>
 
