@@ -7,7 +7,6 @@
   <body>
   <br/>
   <br/>
-
   <h1><a href="<c:url value="/books"/>">Book Lib</a></h1>
   </body>
 </html>
