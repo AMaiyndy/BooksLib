@@ -24,19 +24,7 @@
         <property name="password" value="1qa@WS3ed"/>
     </bean>
 
-    <!--JdbcTemplate bean-->
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 
-    <!--BookDao and BookService beans-->
-    <bean id="bookDao" class="com.may.bookslib.dao.BookDaoImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-    </bean>
-    <bean id="bookService" class="com.may.bookslib.service.BookServiceImpl">
-        <property name="bookDao" ref="bookDao"/>
-    </bean>
-
-    <context:component-scan base-package="com.may.bookslib.controller" />
+    <context:component-scan base-package="com.may.bookslib" />
     <mvc:annotation-driven/>
 </beans>
