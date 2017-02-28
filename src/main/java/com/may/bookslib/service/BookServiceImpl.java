@@ -19,13 +19,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void addBook(Book book) {
-        this.bookDao.addBook(book);
-    }
-
-    @Override
-    public void updateBook(Book book) {
-        this.bookDao.updateBook(book);
+    public void addOrEditBook(Book book) {
+        if(book.getId() > 0) {
+            this.bookDao.updateBook(book);
+        } else {
+            this.bookDao.addBook(book);
+        }
     }
 
     @Override

@@ -42,11 +42,7 @@ public class BookController {
 
     @RequestMapping(value = "/saveBook", method = RequestMethod.POST)
     public String saveBook(@ModelAttribute("book") Book book) {
-        if(book.getId() > 0) {
-            this.bookService.updateBook(book);
-        } else {
-            this.bookService.addBook(book);
-        }
+        this.bookService.addOrEditBook(book);
 
         return "redirect:books";
     }
