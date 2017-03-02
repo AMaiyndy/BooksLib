@@ -2,18 +2,18 @@ package com.may.bookslib.model;
 
 public class Book {
     private long id;
-    private String bookTitle;
-    private String bookAuthor;
-    private long bookQuantity;
+    private String title;
+    private String author;
+    private long quantity;
 
     public Book() {
     }
 
-    public Book(long id, String bookTitle, String bookAuthor, long bookQuantity) {
+    public Book(long id, String title, String author, long quantity) {
         this.id = id;
-        this.bookTitle = bookTitle;
-        this.bookAuthor = bookAuthor;
-        this.bookQuantity = bookQuantity;
+        this.title = title;
+        this.author = author;
+        this.quantity = quantity;
     }
 
     public long getId() {
@@ -24,37 +24,37 @@ public class Book {
         this.id = id;
     }
 
-    public String getBookTitle() {
-        return bookTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public long getBookQuantity() {
-        return bookQuantity;
+    public long getQuantity() {
+        return quantity;
     }
 
-    public void setBookQuantity(long bookQuantity) {
-        this.bookQuantity = bookQuantity;
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", bookTitle='" + bookTitle + '\'' +
-                ", bookAuthor='" + bookAuthor + '\'' +
-                ", bookQuantity=" + bookQuantity +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", quantity=" + quantity +
                 '}';
     }
 }

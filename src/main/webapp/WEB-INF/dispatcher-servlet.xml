@@ -18,4 +18,5 @@
 
     <context:component-scan base-package="com.may.bookslib" />
     <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 </beans>

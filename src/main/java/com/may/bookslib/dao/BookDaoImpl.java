@@ -28,13 +28,13 @@ public class BookDaoImpl implements BookDao {
     @Override
     public void addBook(Book book) {
         String sql = SQL_INSERT;
-        jdbcTemplate.update(sql, book.getBookTitle(), book.getBookAuthor(), book.getBookQuantity());
+        jdbcTemplate.update(sql, book.getTitle(), book.getAuthor(), book.getQuantity());
     }
 
     @Override
     public void updateBook(Book book) {
         String sql = SQL_UPDATE;
-        jdbcTemplate.update(sql, book.getBookTitle(), book.getBookAuthor(), book.getBookQuantity(), book.getId());
+        jdbcTemplate.update(sql, book.getTitle(), book.getAuthor(), book.getQuantity(), book.getId());
     }
 
     @Override

@@ -3,12 +3,12 @@ package com.may.bookslib.controller;
 import com.may.bookslib.model.Book;
 import com.may.bookslib.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @Controller
 public class BookController {
@@ -20,52 +20,75 @@ public class BookController {
     }
 
     @RequestMapping(value = "/")
-    public String homePage() {
-
-        return "index";
-    }
-
-    @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public String booksPage(Model model) {
-        model.addAttribute("book", new Book());
-        model.addAttribute("listBooks", this.bookService.getListOfBooks());
+    public String getHomePage() {
 
         return "books";
     }
 
-    @RequestMapping(value = "/addbook")
-    public String addOrEditBookPage(Model model) {
-        model.addAttribute("book", new Book());
+//    Get all books
+    @RequestMapping(value = "/books/", method = RequestMethod.GET)
+    public ResponseEntity<List<Book>> listAllBooks() {
+        List<Book> books = this.bookService.getListOfBooks();
+        if(books.isEmpty()) {
+            return new ResponseEntity<List<Book>>(HttpStatus.NO_CONTENT);
+        }
 
-        return "addOrEditBookPage";
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/saveBook", method = RequestMethod.POST)
-    public String saveBook(@ModelAttribute("book") Book book) {
+//    Get book by id
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Book> getBook(@PathVariable("id") long id) {
+        System.out.println("Fetching Book with id " + id);
+        Book book = this.bookService.getBookById(id);
+        if(book == null) {
+            System.out.println("Book with id" + id + " not found");
+            return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Book>(book, HttpStatus.OK);
+    }
+//    Create a book
+    @RequestMapping(value = "/books/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createBook(@RequestBody Book book, UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating Book " + book.getTitle());
         this.bookService.addOrEditBook(book);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/books/{id}").buildAndExpand(book.getId()).toUri());
 
-        return "redirect:books";
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/edit/{id}")
-    public String editBook(@PathVariable("id") long id, Model model) {
-        model.addAttribute("book", this.bookService.getBookById(id));
-        model.addAttribute("listBooks", this.bookService.getListOfBooks());
+//    Update a book
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Book> updateBook(@PathVariable("id") long id, @RequestBody Book book) {
+        System.out.println("Updating Book " + id);
 
-        return "addOrEditBookPage";
+        Book currentBook = this.bookService.getBookById(id);
+
+        if(currentBook == null) {
+            System.out.println("Book with id " + id + " not found");
+            return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+        }
+
+        currentBook.setTitle(book.getTitle());
+        currentBook.setAuthor(book.getAuthor());
+        currentBook.setQuantity(book.getQuantity());
+
+        this.bookService.addOrEditBook(currentBook);
+        return new ResponseEntity<Book>(currentBook, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/remove/{id}")
-    public String removeBook(@PathVariable("id") long id) {
+//    Delete a book
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Book> deleteBook(@PathVariable("id") long id) {
+        System.out.println("Fetching and Deleting Book with id " + id);
+
+        Book book = this.bookService.getBookById(id);
+        if(book == null) {
+            System.out.println("Unable to delete. Book with id " + id + " not found");
+            return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+        }
+
         this.bookService.removeBook(id);
-
-        return "redirect:/books";
-    }
-
-    @RequestMapping(value = "/bookdata/{id}")
-    public String bookData(@PathVariable("id") long id, Model model) {
-        model.addAttribute("book", this.bookService.getBookById(id));
-
-        return "bookdata";
+        return new ResponseEntity<Book>(HttpStatus.NO_CONTENT);
     }
 }
