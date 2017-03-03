@@ -55,7 +55,7 @@
     <br/><br/>
     <div class="panel panel-default">
         <div class="panel-heading"><span class="lead">List of Books </span></div>
-        <table class="table">
+        <table class="table table-hover">
             <tr>
                 <th>Id</th>
                 <th>Title</th>
