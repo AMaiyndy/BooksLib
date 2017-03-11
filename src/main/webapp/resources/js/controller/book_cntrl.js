@@ -66,7 +66,7 @@ angular.module('bLib').controller('BookController', ['$scope', 'BookService', fu
     }
 
     function edit(id) {
-        console.log('id to be edited', id);
+        console.log('id (Book) to be edited', id);
         for (var i = 0; i < self.books.length; i++) {
             if(self.books[i].id === id) {
                 self.book = angular.copy(self.books[i]);
@@ -76,7 +76,7 @@ angular.module('bLib').controller('BookController', ['$scope', 'BookService', fu
     }
 
     function remove(id) {
-        console.log('id to be deleted', id);
+        console.log('id (Book) to be deleted', id);
         if (self.book.id === id) {
             reset();
         }
@@ -85,6 +85,6 @@ angular.module('bLib').controller('BookController', ['$scope', 'BookService', fu
 
     function reset() {
        self.book={id:null, title:'', author:'', quantity:null};
-       $scope.myForm.$setPristine();
+       $scope.bookForm.$setPristine();
     }
 }]);

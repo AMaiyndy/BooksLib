@@ -1,6 +1,7 @@
 package com.may.bookslib.controller;
 
 import com.may.bookslib.model.Book;
+import com.may.bookslib.model.Student;
 import com.may.bookslib.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -19,10 +20,16 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/books")
     public String getHomePage() {
 
         return "books";
+    }
+
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    public String getBooksPage(@PathVariable("id") long id) {
+
+        return "book_details";
     }
 
 //    Get all books
@@ -90,5 +97,29 @@ public class BookController {
 
         this.bookService.removeBook(id);
         return new ResponseEntity<Book>(HttpStatus.NO_CONTENT);
+    }
+
+    //   Add book to Student
+    @RequestMapping(value = "/stud_book/{bookId}", method = RequestMethod.POST)
+    public ResponseEntity<Student> addBookToStudent(@PathVariable("bookId") long bookId, @RequestBody Student student) {
+        this.bookService.addBookToStudent(student.getId(), bookId);
+
+        return new ResponseEntity<Student>(student, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/book_stud/{studentId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Book> returnBook(@PathVariable("studentId") long studentId, @RequestBody Book book) {
+        this.bookService.returnBook(studentId, book.getId());
+
+        return new ResponseEntity<Book>(HttpStatus.OK);
+    }
+
+
+    //    Get Students who took that Book
+    @RequestMapping(value = "/book_stud/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Book>> getBooksOfStudent(@PathVariable long id) {
+        List<Book> booksOfStudent = this.bookService.getBooksOfStudent(id);
+
+        return new ResponseEntity<List<Book>>(booksOfStudent, HttpStatus.OK);
     }
 }

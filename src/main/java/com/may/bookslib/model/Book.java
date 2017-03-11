@@ -1,5 +1,8 @@
 package com.may.bookslib.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Book {
     private long id;
     private String title;
@@ -7,6 +10,7 @@ public class Book {
     private long quantity;
 
     public Book() {
+
     }
 
     public Book(long id, String title, String author, long quantity) {
@@ -14,6 +18,12 @@ public class Book {
         this.title = title;
         this.author = author;
         this.quantity = quantity;
+    }
+
+    public Book(long id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
     }
 
     public long getId() {
