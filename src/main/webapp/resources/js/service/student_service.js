@@ -7,8 +7,8 @@ angular.module('bLib').factory('StudentService', ['$http', '$q', function ($http
         fetchAllStudents: fetchAllStudents,
         fetchBooksOfStudent: fetchBooksOfStudent,
         getStudentById: getStudentById,
-        getStudentByName: getStudentByName,
         deleteBookFromStudentsBookList: deleteBookFromStudentsBookList,
+        getStudentByName: getStudentByName,
         createStudent: createStudent,
         updateStudent: updateStudent,
         deleteStudent: deleteStudent,
@@ -62,21 +62,6 @@ angular.module('bLib').factory('StudentService', ['$http', '$q', function ($http
         return deffered.promise;
     }
 
-    function deleteBookFromStudentsBookList(bookId, student) {
-        var deffered = $q.defer();
-        $http.delete('http://localhost:8080/stud_book/'+bookId, student)
-            .then(
-                function (response) {
-                    deffered.resolve(response.data);
-                },
-                function (errResponse) {
-                    console.error('Error while deleting Book from student Book List');
-                    deffered.reject(errResponse);
-                }
-            );
-        return deffered.promise;
-    }
-
     function getStudentByName(name) {
         var deffered = $q.defer();
         $http.get(SERVICE_URI+name)
@@ -86,6 +71,21 @@ angular.module('bLib').factory('StudentService', ['$http', '$q', function ($http
                 },
                 function (errResponse) {
                     console.error('Error while getting Student by name');
+                    deffered.reject(errResponse);
+                }
+            );
+        return deffered.promise;
+    }
+
+    function deleteBookFromStudentsBookList(studentId, book) {
+        var deffered = $q.defer();
+        $http.post('http://localhost:8080/book_stud/'+studentId, book)
+            .then(
+                function (response) {
+                    deffered.resolve(response.data);
+                },
+                function (errResponse) {
+                    console.error('Error while deleting Book from student Book List');
                     deffered.reject(errResponse);
                 }
             );

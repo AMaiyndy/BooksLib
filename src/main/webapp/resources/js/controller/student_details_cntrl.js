@@ -62,12 +62,12 @@ angular.module('bLib').controller('StudentPageController', ['$scope', '$location
             );
     }
 
-    function returnBook(bookId) {
-        StudentService.deleteBookFromStudentsBookList(bookId, self.student)
+    function returnBook(studentId, book) {
+        StudentService.deleteBookFromStudentsBookList(studentId, book)
             .then(
                 function() {
                     fetchAllBooks();
-                    fetchBooksOfStudent(self.sId);
+                    fetchBooksOfStudent(self.student.id);
                 },
                 function (errResponse) {
                     console.error('Error while deleting Book from Student Book List');

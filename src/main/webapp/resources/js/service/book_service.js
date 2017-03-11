@@ -59,6 +59,8 @@ angular.module('bLib').factory('BookService', ['$http', '$q', function ($http, $
         return deffered.promise;
     }
 
+
+
     function createBook(book) {
         var deffered = $q.defer();
         $http.post(SERVICE_URI, book)

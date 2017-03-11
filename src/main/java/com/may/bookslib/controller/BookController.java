@@ -3,6 +3,7 @@ package com.may.bookslib.controller;
 import com.may.bookslib.model.Book;
 import com.may.bookslib.model.Student;
 import com.may.bookslib.service.BookService;
+import com.may.bookslib.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,12 @@ import java.util.List;
 @Controller
 public class BookController {
     private BookService bookService;
+    private StudentService studentService;
+
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @Autowired
     public void setBookService(BookService bookService) {
@@ -108,11 +115,11 @@ public class BookController {
     }
 
 //    Delete Book from Student's Book List
-    @RequestMapping(value = "/stud_book/{bookId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Student> returnBook(@PathVariable("bookId") long bookId, @RequestBody Student student) {
-        this.bookService.returnBook(student.getId(), bookId);
+    @RequestMapping(value = "/book_stud/{studentId}", method = RequestMethod.POST)
+    public ResponseEntity<Void> returnBook(@PathVariable("studentId") long studentId, @RequestBody Book book) {
+        this.bookService.returnBook(studentId, book.getId());
 
-        return new ResponseEntity<Student>(HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
 
