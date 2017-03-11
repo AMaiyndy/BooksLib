@@ -8,6 +8,7 @@ angular.module('bLib').factory('StudentService', ['$http', '$q', function ($http
         fetchBooksOfStudent: fetchBooksOfStudent,
         getStudentById: getStudentById,
         getStudentByName: getStudentByName,
+        deleteBookFromStudentsBookList: deleteBookFromStudentsBookList,
         createStudent: createStudent,
         updateStudent: updateStudent,
         deleteStudent: deleteStudent,
@@ -55,6 +56,21 @@ angular.module('bLib').factory('StudentService', ['$http', '$q', function ($http
                 },
                 function (errResponse) {
                     console.error('Error while getting Student by id');
+                    deffered.reject(errResponse);
+                }
+            );
+        return deffered.promise;
+    }
+
+    function deleteBookFromStudentsBookList(bookId, student) {
+        var deffered = $q.defer();
+        $http.delete('http://localhost:8080/stud_book/'+bookId, student)
+            .then(
+                function (response) {
+                    deffered.resolve(response.data);
+                },
+                function (errResponse) {
+                    console.error('Error while deleting Book from student Book List');
                     deffered.reject(errResponse);
                 }
             );

@@ -59,7 +59,7 @@
                 <td>{{bookOfStudent.title}}</td>
                 <td>{{bookOfStudent.author}}</td>
                 <td>
-                    <button type="button" ng-click="spCtrl.returnBook(bookOfStudent)" class="btn">Return</button>
+                    <button type="button" ng-click="spCtrl.returnBook(bookOfStudent.id)" class="btn">Return</button>
                 </td>
             </tr>
         </table>

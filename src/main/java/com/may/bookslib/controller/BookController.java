@@ -107,11 +107,12 @@ public class BookController {
         return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/book_stud/{studentId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Book> returnBook(@PathVariable("studentId") long studentId, @RequestBody Book book) {
-        this.bookService.returnBook(studentId, book.getId());
+//    Delete Book from Student's Book List
+    @RequestMapping(value = "/stud_book/{bookId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Student> returnBook(@PathVariable("bookId") long bookId, @RequestBody Student student) {
+        this.bookService.returnBook(student.getId(), bookId);
 
-        return new ResponseEntity<Book>(HttpStatus.OK);
+        return new ResponseEntity<Student>(HttpStatus.OK);
     }
 
 

@@ -62,24 +62,20 @@ angular.module('bLib').controller('StudentPageController', ['$scope', '$location
             );
     }
 
-    function deleteBookFromStudentsBookList(studentId, book) {
-        BookService.deleteBookFromStudentsBookList(studentId, book)
+    function returnBook(bookId) {
+        StudentService.deleteBookFromStudentsBookList(bookId, self.student)
             .then(
                 function() {
                     fetchAllBooks();
                     fetchBooksOfStudent(self.sId);
                 },
                 function (errResponse) {
-                    console.error('Error while getting Student by id');
+                    console.error('Error while deleting Book from Student Book List');
                 }
             );
     }
 
     function takeBook(bookId) {
         addBookToStudent(bookId, self.student);
-    }
-
-    function returnBook(book) {
-        deleteBookFromStudentsBookList(self.sId, book);
     }
 }]);
