@@ -10,4 +10,4 @@ Maven, Jetty, MySQL, JDBC, JNDI, JavaScript, AngularJS, Bootstrap.***
 
 ------------
 This project represents a simple CRUD-application "Student's library". Technologies are used in this project: ***Spring MVC, 
-Maven, MySQL, JDBC, JNDI, JavaScript, AngularJS, Bootstrap.***
+Maven, Jetty, MySQL, JDBC, JNDI, JavaScript, AngularJS, Bootstrap.***
