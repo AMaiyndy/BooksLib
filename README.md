@@ -9,5 +9,5 @@ Maven, Jetty, MySQL, JDBC, JNDI, JavaScript, AngularJS, Bootstrap.***
 * При этом, в список книг студента можно добавить только один экземпляр каждой книги, а также в список книг студента нельзя добавить книгу, которой нет в наличии (количество равно 0).
 
 ------------
-This project represents the simple CRUD-application "Student's library". Technologies are used in this project: ***Spring MVC, 
+This project represents a simple CRUD-application "Student's library". Technologies are used in this project: ***Spring MVC, 
 Maven, MySQL, JDBC, JNDI, JavaScript, AngularJS, Bootstrap.***
